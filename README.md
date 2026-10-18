@@ -88,3 +88,7 @@ python manage.py test quality
 ## Notes
 
 The project uses SQLite by default. Database files and local environment files should not be committed to version control.
+
+## Demonstration Video
+
+[Watch the project demonstration](https://youtu.be/CNrDejv2XuI)
