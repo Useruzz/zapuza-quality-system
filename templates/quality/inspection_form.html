@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Record Quality Inspection | Zapuza</title>
+    </head>
+    <body>
+        <h1>Record Quality Inspection</h1>
+
+        <p>
+            Enter the measurement and its acceptable minimum and maximum.
+            The system calculate PASS or FAIL automatically.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit">Save Inspection</button>
+        </form>
+
+        <p>
+            <a href="{% url 'quality:inspection_list' %}">
+                Back to inspections
+            </a>
+        </p>
+    </body>
+</html>

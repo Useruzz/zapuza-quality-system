@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Create Production Job | Zapuza</title>
+    </head>
+    <body>
+        <h1>Create Production Job</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create Job</button>
+        </form>
+
+        <p><a href="{% url 'production:job_list' %}">Back to jobs</a></p>
+    </body>
+</html>

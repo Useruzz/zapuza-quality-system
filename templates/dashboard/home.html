@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Factory Dashboard | Zapuza</title>
+    </head>
+    <body>
+        <h1>Zapuza Factory Dashboard</h1>
+
+        <h2>Production Overview</h2>
+        
+        <ul>
+            <li>Total Production Jobs: {{ total_jobs }}</li>
+            <li>Pending Jobs: {{ pending_jobs }}</li>
+            <li>Jobs in Progress: {{ in_progress_jobs }}</li>
+            <li>Approved Jobs: {{ approved_jobs }}</li>
+            <li>Rejected Jobs: {{ rejected_jobs }}</li>
+        </ul>
+
+        <h2>Quality Overview</h2>
+
+        <ul>
+            <li>Total Inspections: {{ total_inspections }}</li>
+            <li>Passed Inspections: {{ passed_inspections }}</li>
+            <li>Failed Inspections: {{ failed_inspections }}</li>
+        </ul>
+
+        <h2>Recent Production Jobs</h2>
+
+        {% if recent_jobs %}
+            <table border="1" cellpadding="8">
+                <thead>
+                    <tr>
+                        <th>Job Number</th>
+                        <th>Part Name</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in recent_jobs %}
+                        <tr>
+                            <td>{{ job.job_number }}</td>
+                            <td>{{ job.part_name }}</td>
+                            <td>{{ job.quantity }}</td>
+                            <td>{{ job.get_status_display }}</td>
+                            <td>{{ job.created_at|date:"d M Y, H:i" }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No production jobs are available yet.</p>
+        {% endif %}
+
+        <p>
+            <a href="{% url 'production:job_list' %}">
+                View All Production Jobs
+            </a>
+        </p>
+
+        <p>
+            <a href="/admin/">
+                Open Django Admin
+            </a>
+        </p>
+    </body>
+</html>

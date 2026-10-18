@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name=""viewport" content="width=device-width, insitial-scale=1">
+        <title>{{ job.job_number }} | Zapuza</title>
+    </head>
+    <body>
+        <h1>Production Job: {{ job.job_number }}</h1>
+
+        <dl>
+            <dt>Part name</dt>
+            <dd>{{ job.part_name }}</dd>
+
+            <dt>Quantity</dt>
+            <dd>{{ job.quantity }}</dd>
+
+            <dt>Status</dt>
+            <dd>{{ job.get_status_display }}</dd>
+
+            <dt>Created</dt>
+            <dd>{{ job.created_at|date:"d M Y, H:i" }}</dd>
+        </dl>
+
+        <p><a href="{% url 'production:job_list' %}">Back to jobs</a></p>
+
+        <hr>
+
+        <h2>Update Production Status</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post"
+              action="{% url 'production:update_job_status' job.pk %}">
+            {% csrf_token %}
+        
+            <label for="status">New status:</label>
+        
+            <select name="status" id="status" required>
+                <option value="">Select status</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="INSPECTION">Inspection</option>
+                <option value="APPROVED">Approved</option>
+                <option value="REJECTED">Rejected</option>
+                <option value="DISPATCHED">Dispatched</option>
+            </select>
+        
+            <button type="submit">Update Status</button>
+        </form>
+    </body>
+</html>

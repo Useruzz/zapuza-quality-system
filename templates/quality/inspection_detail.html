@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Inspection Details | Zapuza</title>
+    </head>
+    <body>
+        <h1>Inspection Details</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <h2>
+            Job: {{ inspection.production_job.job_number }}
+        </h2>
+
+        <dl>
+            <dt>Part Name</dt>
+            <dd>{{ inspection.production_job.part_name }}</dd>
+
+            <dt>Measurement</dt>
+            <dd>{{ inspection.measurement_name }}</dd>
+
+            <dt>Measured Value</dt>
+            <dd>{{ inspection.measured_value }}</dd>
+
+            <dt>Minimum Acceptable Value</dt>
+            <dd>{{ inspection.minimum_value }}</dd>
+
+            <dt>Maximum Acceptable Value</dt>
+            <dd>{{ inspection.maximum_value }}</dd>
+
+            <dt>Inspection Result</dt>
+            <dd>{{ inspection.result }}</dd>
+
+            <dt>Inspected Date</dt>
+            <dd>{{ inspection.inspected_at|date:"d M Y, H:i" }}</dd>
+        </dl>
+        
+        <p>
+            <a href="{% url 'quality:inspection_list' %}">
+                Back to All Inspections
+            </a>
+        </p>
+
+        <p>
+            <a href="{% url 'quality:inspection_create' %}">
+                Record Another Inspection
+            </a>
+        </p>
+    </body>
+</html>

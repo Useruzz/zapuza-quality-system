@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Quality Inspections | Zapuza</title>
+    </head>
+    <body>
+        <h1>Quality Inspections</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        
+        <h2>Inspection Summary</h2>
+        <ul>
+            <li>Total inspections: {{ total_inspections }}</li>
+            <li>Passed: {{ passed_inspections }}</li>
+            <li>Failed: {{ failed_inspections }}</li>
+        </ul>
+
+        <p>
+            <a href="{% url 'quality:inspection_create' %}">
+                Record New Inspection
+            </a>
+        </p>
+
+        {% if inspections %}
+            <table border="1" cellpadding="8">
+                <thead>
+                    <tr>
+                        <th>Production Job</th>
+                        <th>Measurement</th>
+                        <th>Measured Value</th>
+                        <th>Acceptable Range</th>
+                        <th>Result</th>
+                        <th>Inspected At</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inspection in inspections %}
+                        <tr>
+                            <td>
+                                {{ inspection.production_job.job_number }}
+                            </td>
+                            <td>{{ inspection.measurement_name }}</td>
+                            <td>{{ inspection.measured_value }}</td>
+                            <td>
+                                {{ inspection.minimum_value }}
+                                to
+                                {{ inspection.maximum_value }}
+                            </td>
+                            <td>{{ inspection.result }}</td>
+                            <td>
+                                {{ inspection.inspected_at|date:"d M Y, H:i" }}
+                            </td>
+                            <td>
+                                <a href="{% url 'quality:inspection_detail' inspection.pk %}">
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No inspections have been recorded yet.</p>
+        {% endif %}
+
+        <p>
+            <a href="{% url 'dashboard:home' %}">
+                Back to Dashboard
+            </a>
+        </p>
+    </body>
+</html>
